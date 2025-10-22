@@ -1,25 +1,30 @@
 package org.example;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class OrderMapRepo implements OrderRepo {
-    ArrayList<Order> orders = new ArrayList<>();
+    HashMap<Integer, Order> orders = new HashMap<>();
 
     @Override
-    public ArrayList<Order> getOrders(){
+    public HashMap<Integer, Order> getMapOrders(){
         return orders;
     }
+
+    @Override
+    public ArrayList<Order> getArrayOrders() {
+        return null;
+    }
+
     public void addOrder(Order order){
-        orders.add(order);
+        orders.put(order.id(), order);
     }
     public void removeOrder(Order order){
-        orders.remove(order);
+        orders.remove(order.id(), order);
     }
     public Order getOrder(int id){
-        for (Order order : orders) {
-            if (order.id() == id) {
-                return order;
-            }
+        if (orders.containsKey(id)) {
+            return orders.get(id);
         }
         System.out.println("Order not found");
         return null;

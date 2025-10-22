@@ -17,12 +17,12 @@ public class ProductRepo {
         products.remove(product);
     }
 
-    public boolean getProduct(int id){
+    public Product getProduct(int id){
         for (Product product : products){
             if( product.id() == id){
-                return true;
+                return product;
             }
         }
-        return false;
+        return null;
     }
 }

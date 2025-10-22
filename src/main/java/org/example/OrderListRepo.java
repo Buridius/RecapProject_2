@@ -1,13 +1,21 @@
 package org.example;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
-public class OrderListRepo {
+public class OrderListRepo implements OrderRepo {
     ArrayList<Order> orders = new ArrayList<>();
 
-    public ArrayList<Order> getOrders(){
+    @Override
+    public HashMap<Integer, Order> getMapOrders() {
+        return null;
+    }
+
+    @Override
+    public ArrayList<Order> getArrayOrders() {
         return orders;
     }
+
     public void addOrder(Order order){
         orders.add(order);
     }

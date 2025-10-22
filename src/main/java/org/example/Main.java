@@ -29,7 +29,7 @@ public class Main {
         orderListRepo.addOrder(order2);
         orderListRepo.addOrder(noProduct);
 
-        ShopService shopService = new ShopService();
-        shopService.placeOrder(productRepo, product3, order2);
+        ShopService shopService = new ShopService(productRepo, orderListRepo);
+        shopService.placeOrder( "Customer5", product3, 5);
     }
 }

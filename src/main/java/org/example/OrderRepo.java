@@ -1,11 +1,16 @@
 package org.example;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public interface OrderRepo {
 
-    ArrayList<Order> getOrders();
+    HashMap<Integer, Order> getMapOrders();
+    ArrayList<Order> getArrayOrders();
     void addOrder(Order order);
     void removeOrder(Order order);
-    Order getOrder(int id);
+
+    default Order getOrder(int id) {
+        return null;
+    }
 }
