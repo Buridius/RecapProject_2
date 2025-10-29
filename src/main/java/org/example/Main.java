@@ -1,6 +1,8 @@
 package org.example;
 
 
+import java.time.LocalDateTime;
+
 public class Main {
     public static void main(String[] args) {
         OrderListRepo orderListRepo = new OrderListRepo();
@@ -20,13 +22,14 @@ public class Main {
         productRepo.addProduct(product5);
 
 
-        Order order1 = new Order(1, "Customer1",product1 ,3);
-        Order order2 = new Order(2, "Customer2",product2 ,7);
-        Order order3 = new Order(3, "Customer3",product3 ,5);
-        Order noProduct = new Order(3, "Customer3",product6 ,7);
+        Order order1 = new Order(UuidGenerator.generateId(), "Customer1",product1 ,3, "PROCESSING", LocalDateTime.now() );
+        Order order2 = new Order(UuidGenerator.generateId(), "Customer2",product2 ,7, "PROCESSING", LocalDateTime.now() );
+        Order order3 = new Order(UuidGenerator.generateId(), "Customer3",product3 ,5, "PROCESSING", LocalDateTime.now() );
+        Order noProduct = new Order(UuidGenerator.generateId(), "Customer3",product6 ,7, "PROCESSING", LocalDateTime.now() );
 
         orderListRepo.addOrder(order1);
         orderListRepo.addOrder(order2);
+        orderListRepo.addOrder(order3);
         orderListRepo.addOrder(noProduct);
 
         ShopService shopService = new ShopService(productRepo, orderListRepo);
