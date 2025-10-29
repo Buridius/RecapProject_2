@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class OrderMapRepo implements OrderRepo {
-    HashMap<Integer, Order> orders = new HashMap<>();
+    HashMap<String, Order> orders = new HashMap<>();
 
     @Override
-    public HashMap<Integer, Order> getMapOrders(){
+    public HashMap<String, Order> getMapOrders(){
         return orders;
     }
 
@@ -22,6 +22,7 @@ public class OrderMapRepo implements OrderRepo {
     public void removeOrder(Order order){
         orders.remove(order.id(), order);
     }
+
     public Order getOrder(int id){
         if (orders.containsKey(id)) {
             return orders.get(id);

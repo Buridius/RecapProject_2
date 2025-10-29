@@ -7,7 +7,7 @@ public class OrderListRepo implements OrderRepo {
     ArrayList<Order> orders = new ArrayList<>();
 
     @Override
-    public HashMap<Integer, Order> getMapOrders() {
+    public HashMap<String, Order> getMapOrders() {
         return null;
     }
 
@@ -22,9 +22,9 @@ public class OrderListRepo implements OrderRepo {
     public void removeOrder(Order order){
         orders.remove(order);
     }
-    public Order getOrder(int id){
+    public Order getOrder(String id){
         for (Order order : orders) {
-            if (order.id() == id) {
+            if (order.id().equals(id)) {
                 return order;
             }
         }
