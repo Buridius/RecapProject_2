@@ -2,6 +2,7 @@ package org.example;
 
 
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 public class Main {
     public static void main(String[] args) {
@@ -22,10 +23,10 @@ public class Main {
         productRepo.addProduct(product5);
 
 
-        Order order1 = new Order(UuidGenerator.generateId(), "Customer1",product1 ,3, "PROCESSING", LocalDateTime.now() );
-        Order order2 = new Order(UuidGenerator.generateId(), "Customer2",product2 ,7, "PROCESSING", LocalDateTime.now() );
-        Order order3 = new Order(UuidGenerator.generateId(), "Customer3",product3 ,5, "PROCESSING", LocalDateTime.now() );
-        Order noProduct = new Order(UuidGenerator.generateId(), "Customer3",product6 ,7, "PROCESSING", LocalDateTime.now() );
+        Order order1 = new Order(UuidGenerator.generateId(), "Customer1",product1 ,3, "PROCESSING", ZonedDateTime.now() );
+        Order order2 = new Order(UuidGenerator.generateId(), "Customer2",product2 ,7, "PROCESSING", ZonedDateTime.now() );
+        Order order3 = new Order(UuidGenerator.generateId(), "Customer3",product3 ,5, "PROCESSING", ZonedDateTime.now() );
+        Order noProduct = new Order(UuidGenerator.generateId(), "Customer3",product6 ,7, "PROCESSING", ZonedDateTime.now() );
 
         orderListRepo.addOrder(order1);
         orderListRepo.addOrder(order2);
