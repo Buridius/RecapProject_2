@@ -10,7 +10,7 @@ public interface OrderRepo {
     void addOrder(Order order);
     void removeOrder(Order order);
 
-    default Order getOrder(int id) {
+    default Order getOrder(String id) {
         return null;
     }
 }

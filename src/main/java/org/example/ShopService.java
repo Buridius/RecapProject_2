@@ -1,11 +1,8 @@
 package org.example;
 
-import lombok.RequiredArgsConstructor;
-
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 
-@RequiredArgsConstructor
 public class ShopService {
 
     OrderRepo orderRepo;
@@ -18,7 +15,16 @@ public class ShopService {
 
     public void placeOrder(String customerName, Product product, int amount) {
         try {
-            Order newOrder = new Order(UuidGenerator.generateId(), customerName, product, amount, "PROCESSING", LocalDateTime.now());
+            for( int i = 0; i < productRepo.getProducts().size(); i++ ) {
+                if (!(productRepo.getProducts().contains(product))) {
+                    throw new Exception("Product not found");
+                }
+            }
+        }catch (Exception ex){
+            System.out.println("No product found");
+        }
+        try {
+            Order newOrder = new Order(Utilities.generateId(), customerName, product, amount, "PROCESSING", ZonedDateTime.now());
             orderRepo.addOrder(newOrder);
         } catch (Exception ex) {
             System.out.println("Product not found");
@@ -26,7 +32,7 @@ public class ShopService {
     }
 
     public ArrayList getOrderByStatus(String status) {
-        ArrayList returnValue = new ArrayList<Order>();
+        ArrayList<Order> returnValue = new ArrayList<>();
         orderRepo.getArrayOrders().stream()
                 .filter(s -> s.status().equals(status))
                 .forEach(o -> returnValue.add(o) );
@@ -35,16 +41,16 @@ public class ShopService {
     }
 
     public void updateOrder(String id) {
-        for (int i = 0; i < orderRepo.getArrayOrders().size(); i++) {
-            Order order = orderRepo.getArrayOrders().get(i);
-            if (order.id().equals(id)){
-                if (order.status().equals("PROCESSING")) {
-                    order.withStatus("IN_DELIVERY");
-                } else if (order.status().equals("IN_DELIVERY")) {
-                    order.withStatus("COMPLETED");
-                }
+        Order order = orderRepo.getOrder(id);
 
+        if (order.id().equals(id)){
+            if (order.status().equals(Utilities.orderStatus.PROCESSING.getDisplayName())) {
+                order.withStatus(Utilities.orderStatus.IN_DELIVERY.getDisplayName());
+            } else if (order.status().equals(Utilities.orderStatus.IN_DELIVERY.getDisplayName())) {
+                    order.withStatus(Utilities.orderStatus.COMPLETED.getDisplayName());
             }
+
         }
+
     }
 }
