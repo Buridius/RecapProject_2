@@ -1,13 +1,15 @@
 package org.example;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import lombok.RequiredArgsConstructor;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+
+@RequiredArgsConstructor
 public class ShopService {
 
     OrderRepo orderRepo;
     ProductRepo productRepo;
-    static int orderId = 0;
 
     public ShopService(ProductRepo productRepo, OrderRepo orderRepo) {
         this.productRepo = productRepo;
@@ -15,12 +17,34 @@ public class ShopService {
     }
 
     public void placeOrder(String customerName, Product product, int amount) {
-        if (productRepo.getProduct(product.id()) != null) {
-            orderId++;
-            Order newOrder = new Order(orderId, customerName, product, amount );
+        try {
+            Order newOrder = new Order(UuidGenerator.generateId(), customerName, product, amount, "PROCESSING", LocalDateTime.now());
             orderRepo.addOrder(newOrder);
-        } else {
+        } catch (Exception ex) {
             System.out.println("Product not found");
+        }
+    }
+
+    public ArrayList getOrderByStatus(String status) {
+        ArrayList returnValue = new ArrayList<Order>();
+        orderRepo.getArrayOrders().stream()
+                .filter(s -> s.status().equals(status))
+                .forEach(o -> returnValue.add(o) );
+
+        return returnValue;
+    }
+
+    public void updateOrder(String id) {
+        for (int i = 0; i < orderRepo.getArrayOrders().size(); i++) {
+            Order order = orderRepo.getArrayOrders().get(i);
+            if (order.id().equals(id)){
+                if (order.status().equals("PROCESSING")) {
+                    order.withStatus("IN_DELIVERY");
+                } else if (order.status().equals("IN_DELIVERY")) {
+                    order.withStatus("COMPLETED");
+                }
+
+            }
         }
     }
 }

@@ -1,4 +1,8 @@
 package org.example;
 
-public record Order(int id, String customerName, Product product, int amount) {
+import lombok.With;
+
+@With
+public record Order(String id, String customerName, Product product, int amount, String status, java.time.ZonedDateTime createdAt) {
+
 }

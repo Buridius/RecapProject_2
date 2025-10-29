@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 public interface OrderRepo {
 
-    HashMap<Integer, Order> getMapOrders();
+    HashMap<String, Order> getMapOrders();
     ArrayList<Order> getArrayOrders();
     void addOrder(Order order);
     void removeOrder(Order order);
